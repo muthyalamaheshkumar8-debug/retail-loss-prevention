@@ -1,0 +1,13 @@
+.git
+.env
+.env.*
+**/node_modules
+**/dist
+**/__pycache__
+.venv
+runtime
+**/*.pt
+**/*.mp4
+**/*.avi
+**/*.mov
+**/*.mkv

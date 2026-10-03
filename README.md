@@ -136,9 +136,11 @@ git remote add origin https://github.com/YOUR-USERNAME/retail-loss-prevention.gi
 git push -u origin main
 ```
 
-Replace `YOUR-USERNAME` with your own account. The ZIP includes source, tests, Docker files, lockfile and documentation. It excludes passwords, real videos, model weights, node_modules and database files. Verify `git status` before publishing. This package has not been pushed to a repository on your behalf.
+Replace `YOUR-USERNAME` with your own account. The ZIP includes source, tests, Docker files, lockfile and documentation. It excludes passwords, real videos, model weights, node_modules and database files. Verify `git status` before publishing. The source is published at [muthyalamaheshkumar8-debug/retail-loss-prevention](https://github.com/muthyalamaheshkumar8-debug/retail-loss-prevention).
 
 GitHub hosts the repository; it does not run the Python worker and database. GitHub Pages alone cannot host this application. Follow the [GitHub and HTTPS deployment guide](docs/deployment.md) to run the containers on a Docker server with the included Caddy HTTPS overlay.
+
+For Render, follow the [Render deployment guide](docs/render.md) and review the paid resources in `render.yaml` before deploying.
 
 ## Screenshots
 

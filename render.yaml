@@ -1,0 +1,60 @@
+# This Blueprint creates PAID resources. Review Render's price before deploying.
+services:
+  - type: pserv
+    name: retail-review-mongodb
+    runtime: image
+    image:
+      url: mongo:8.0
+    plan: 0.5c-512mb
+    region: singapore
+    dockerCommand: mongod --bind_ip_all --auth --wiredTigerCacheSizeGB 0.25
+    disk:
+      name: mongo-data
+      mountPath: /data/db
+      sizeGB: 5
+    envVars:
+      - key: MONGO_INITDB_ROOT_USERNAME
+        value: retailadmin
+      - key: MONGO_INITDB_ROOT_PASSWORD
+        generateValue: true
+  - type: web
+    name: retail-review
+    runtime: docker
+    repo: https://github.com/muthyalamaheshkumar8-debug/retail-loss-prevention
+    branch: main
+    plan: 1c-2g
+    region: singapore
+    dockerfilePath: ./deploy/render/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: checksPass
+    disk:
+      name: media-data
+      mountPath: /data
+      sizeGB: 10
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: CV_ENABLED
+        value: "true"
+      - key: DATABASE_NAME
+        value: loss_prevention
+      - key: MONGODB_HOST
+        fromService:
+          name: retail-review-mongodb
+          type: pserv
+          property: host
+      - key: MONGODB_USER
+        fromService:
+          name: retail-review-mongodb
+          type: pserv
+          envVarKey: MONGO_INITDB_ROOT_USERNAME
+      - key: MONGODB_PASSWORD
+        fromService:
+          name: retail-review-mongodb
+          type: pserv
+          envVarKey: MONGO_INITDB_ROOT_PASSWORD
