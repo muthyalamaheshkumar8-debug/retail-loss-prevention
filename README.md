@@ -3,6 +3,14 @@
 
 A working full-stack application for uploading store video, detecting/tracking people, recording neutral zone observations, generating evidence and documenting investigator decisions. React + FastAPI + MongoDB + OpenCV/YOLO + Docker.
 
+## Watch the concept demo
+
+[![Retail Review animated concept preview](docs/demo/preview.gif)](docs/demo/retail-review-concept.mp4)
+
+**[Watch / download the 22-second video](docs/demo/retail-review-concept.mp4)** · [Demo details and reproduction](docs/demo/README.md)
+
+A realistic generated store scene with animated person boxes, per-video IDs, a marked aisle and human-review guidance. **The scene is an AI-generated still, and the overlays are scripted illustrations.** This is a concept explainer, not recorded YOLO output, a live application recording or evidence of detection accuracy. The free Render deployment disables person tracking; use the local Docker setup for actual tracking tests.
+
 **Scope:** AI creates observations, never criminal-risk scores or automatic incidents. Humans create, prioritize, classify and escalate cases after reviewing evidence. No facial recognition, identity matching, crime prediction or automated theft determination. Uploaded footage is processed locally; direct CCTV/RTSP streaming is not part of this release.
 
 ## Quick start — Docker (recommended)

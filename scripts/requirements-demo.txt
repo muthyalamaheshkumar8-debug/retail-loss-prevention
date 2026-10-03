@@ -1,0 +1,3 @@
+# Optional portfolio video renderer only; not a runtime application dependency.
+numpy>=1.26,<3
+Pillow>=10,<13

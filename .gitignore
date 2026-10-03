@@ -1,5 +1,6 @@
 .env
 .venv/
+.venv-demo/
 node_modules/
 dist/
 __pycache__/
@@ -8,6 +9,7 @@ __pycache__/
 runtime/
 *.pt
 *.mp4
+!docs/demo/retail-review-concept.mp4
 *.mov
 *.avi
 *.mkv
