@@ -730,7 +730,7 @@ def system_settings(user=Depends(current_user)):
     return {
         "cv_enabled": settings.cv_enabled,
         "model": Path(settings.yolo_model).name,
-        "max_upload_mb": 500,
+        "max_upload_mb": settings.max_upload_bytes / (1024 * 1024),
         "max_duration_minutes": settings.max_duration // 60,
         "tracking": "ByteTrack; IDs reset per video",
         "event_limit_per_video": 10000,

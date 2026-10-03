@@ -1,7 +1,7 @@
 """Translate Render settings without writing credentials to disk or stdout."""
 import os
 from pathlib import Path
-from urllib.parse import quote, urlsplit
+from urllib.parse import urlsplit
 
 
 def configure(environ):
@@ -19,16 +19,8 @@ def configure(environ):
     env["COOKIE_SECURE"] = "true"
     env["DATA_DIR"] = "/data"
     env["YOLO_CONFIG_DIR"] = "/data/ultralytics"
-    if not env.get("MONGODB_URI"):
-        for key in ("MONGODB_HOST", "MONGODB_USER", "MONGODB_PASSWORD"):
-            if not env.get(key):
-                raise ValueError(f"Missing {key}")
-        host = env["MONGODB_HOST"]
-        if any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-" for char in host):
-            raise ValueError("MONGODB_HOST must be a hostname")
-        user = quote(env["MONGODB_USER"], safe="")
-        password = quote(env["MONGODB_PASSWORD"], safe="")
-        env["MONGODB_URI"] = f"mongodb://{user}:{password}@{host}:27017/?authSource=admin"
+    if not env.get("MONGODB_URI", "").startswith(("mongodb://", "mongodb+srv://")):
+        raise ValueError("Set MONGODB_URI to your MongoDB Atlas M0 connection string")
     if len(env.get("JWT_SECRET", "")) < 32 or env["JWT_SECRET"].startswith("replace-"):
         raise ValueError("JWT_SECRET must contain at least 32 random characters")
     if len(env.get("ADMIN_PASSWORD", "")) < 12 or env["ADMIN_PASSWORD"].startswith("replace-"):

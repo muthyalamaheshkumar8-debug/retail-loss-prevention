@@ -24,7 +24,8 @@ import {
 export function Videos() {
   const [page, setPage] = useState(1),
     videos = useData(`/videos?page=${page}`, 4000),
-    stores = useData("/stores");
+    stores = useData("/stores"),
+    limits = useData("/settings");
   const [store, setStore] = useState(""),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
@@ -38,8 +39,10 @@ export function Videos() {
     setProgress(0);
     try {
       const file = form.elements.file.files[0];
-      if (file.size > 500 * 1024 * 1024)
-        throw Error("Maximum video size is 500 MB");
+      if (!limits.data)
+        throw Error("Wait for the server's upload limits to load");
+      if (file.size > limits.data.max_upload_mb * 1024 * 1024)
+        throw Error(`Maximum video size is ${limits.data.max_upload_mb} MB`);
       const r = await api.post("/videos/upload", new FormData(form), {
         onUploadProgress: (e) =>
           setProgress(Math.round((e.loaded / (e.total || 1)) * 100)),
@@ -63,7 +66,12 @@ export function Videos() {
             <Upload />
           </div>
           <h2>Add store footage</h2>
-          <p>MP4, MOV, AVI, MKV · Up to 500 MB · Up to 60 minutes</p>
+          <p>
+            MP4, MOV, AVI, MKV ·{" "}
+            {limits.data
+              ? `Up to ${limits.data.max_upload_mb} MB · Up to ${limits.data.max_duration_minutes} minutes`
+              : "Loading upload limits…"}
+          </p>
         </div>
         <form onSubmit={upload} className="upload-form">
           <label>
@@ -103,12 +111,15 @@ export function Videos() {
               required
             />
           </label>
-          <button className="primary" disabled={busy || !stores.data?.length}>
+          <button
+            className="primary"
+            disabled={busy || !stores.data?.length || !limits.data}
+          >
             <Upload size={16} />
             {busy ? `Uploading ${progress}%` : "Upload video"}
           </button>
         </form>
-        <ErrorBox>{error || stores.error}</ErrorBox>
+        <ErrorBox>{error || stores.error || limits.error}</ErrorBox>
         {stores.data?.length === 0 && (
           <p>
             <Link className="text-link" to="/stores">

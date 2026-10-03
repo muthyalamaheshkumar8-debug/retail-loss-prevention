@@ -1294,3 +1294,12 @@ details {
     display: none;
   }
 }
+.hosting-notice {
+  padding: 14px 18px;
+  margin: 0 0 24px;
+  border: 1px solid #e7c16f;
+  border-radius: 10px;
+  background: #fff8e9;
+  color: #614a1f;
+  line-height: 1.6;
+}

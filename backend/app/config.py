@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     frame_stride: int = 3
     max_upload_bytes: int = 500 * 1024 * 1024
     max_duration: int = 3600
+    max_resolution_pixels: int = 4096 * 2160
+    ffmpeg_threads: int = 0
 
 
 settings = Settings()

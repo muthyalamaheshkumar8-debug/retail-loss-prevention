@@ -14,7 +14,10 @@ def ffmpeg(*args):
             "error",
             "-nostdin",
             "-y",
-            *map(str, args),
+            *map(str, args[:-1]),
+            "-threads",
+            str(settings.ffmpeg_threads),
+            str(args[-1]),
         ],
         capture_output=True,
         text=True,
@@ -50,8 +53,8 @@ def probe(path):
     duration = float(data.get("format", {}).get("duration", stream.get("duration", 0)))
     if not 0 < duration <= settings.max_duration:
         raise ValueError(f"Video must be between 0 and {settings.max_duration} seconds")
-    if stream.get("width", 0) * stream.get("height", 0) > 4096 * 2160:
-        raise ValueError("Video resolution must not exceed 4K")
+    if stream.get("width", 0) * stream.get("height", 0) > settings.max_resolution_pixels:
+        raise ValueError("Video resolution exceeds this server's configured limit")
     return {"duration": duration, "width": stream["width"], "height": stream["height"]}
 
 

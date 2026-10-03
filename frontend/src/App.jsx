@@ -221,6 +221,13 @@ export default function App() {
           </span>
         </div>
         <main>
+          {import.meta.env.VITE_FREE_HOSTING_MODE === "true" && (
+            <p className="hosting-notice" role="note">
+              Free demo: person tracking is disabled. Uploaded videos and
+              evidence are temporary and can disappear when the server sleeps or
+              restarts. Download evidence you want to keep.
+            </p>
+          )}
           <Routes>
             <Route path="/" element={<Dashboard user={user} />} />
             <Route path="/videos" element={<Videos />} />

@@ -140,7 +140,7 @@ Replace `YOUR-USERNAME` with your own account. The ZIP includes source, tests, D
 
 GitHub hosts the repository; it does not run the Python worker and database. GitHub Pages alone cannot host this application. Follow the [GitHub and HTTPS deployment guide](docs/deployment.md) to run the containers on a Docker server with the included Caddy HTTPS overlay.
 
-For Render, follow the [Render deployment guide](docs/render.md) and review the paid resources in `render.yaml` before deploying.
+For a free demo without payment details, follow the [Render + MongoDB Atlas guide](docs/render.md). The default `render.yaml` creates only a free web service. This mode disables person tracking, accepts short videos, and uses temporary media storage. The local Docker setup retains the original tracking and storage capabilities.
 
 ## Screenshots
 
