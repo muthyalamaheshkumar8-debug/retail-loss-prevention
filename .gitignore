@@ -1,0 +1,17 @@
+.env
+.venv/
+node_modules/
+dist/
+__pycache__/
+.pytest_cache/
+*.pyc
+runtime/
+*.pt
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.sqlite*
+.DS_Store
+Ultralytics/
+runs/

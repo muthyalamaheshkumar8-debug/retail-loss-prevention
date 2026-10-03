@@ -1,0 +1,7 @@
+__pycache__
+.venv
+.env
+runtime
+.pytest_cache
+Ultralytics
+runs

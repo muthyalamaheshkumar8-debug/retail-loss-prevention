@@ -1,0 +1,28 @@
+# Use together with docker-compose.yml; the local 8080 port stays loopback-only.
+services:
+  backend:
+    environment:
+      APP_ORIGIN: https://${DEPLOY_DOMAIN:?Set DEPLOY_DOMAIN in .env}
+      COOKIE_SECURE: "true"
+  worker:
+    environment:
+      APP_ORIGIN: https://${DEPLOY_DOMAIN:?Set DEPLOY_DOMAIN in .env}
+      COOKIE_SECURE: "true"
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      DEPLOY_DOMAIN: ${DEPLOY_DOMAIN:?Set DEPLOY_DOMAIN in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      frontend:
+        condition: service_started
+volumes:
+  caddy-data:
+  caddy-config:
