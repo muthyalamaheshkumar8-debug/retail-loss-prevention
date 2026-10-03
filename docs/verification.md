@@ -1,5 +1,18 @@
 # Verification — 2 October 2026
 
+## GitHub publication and Render setup — 3 October 2026
+
+All 68 source/configuration/documentation files were published to
+`muthyalamaheshkumar8-debug/retail-loss-prevention`. GitHub Actions completed
+the backend test job and frontend test/build job successfully for the Render
+configuration commit `e8d0f7e565b13be07a8d8c61283ebb95a262581a`.
+Render startup settings, URL escaping for MongoDB credentials, rejection of
+invalid origins/secrets/ports and Blueprint service structure were checked.
+Render loaded the Blueprint but requires payment information before resource
+creation. No paid services, Docker build, live deployment or live URL were
+created in this setup. The earlier preparation section below records the state
+before publication.
+
 ## Deployment preparation — 3 October 2026
 
 The source was compared with the saved project archive before changes. Added

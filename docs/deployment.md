@@ -1,7 +1,9 @@
 # GitHub and HTTPS deployment
 
-These files prepare a deployment; they do not represent a completed GitHub push
-or a live service.
+The source is published to `muthyalamaheshkumar8-debug/retail-loss-prevention`.
+These deployment files do not represent a live service. For Render, use
+[the Render guide](render.md); the instructions below also support an ordinary
+Docker server.
 
 ## 1. Create the GitHub repository
 
